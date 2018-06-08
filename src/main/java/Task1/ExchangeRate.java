@@ -38,9 +38,9 @@ public class ExchangeRate {
 
             xr.parse(inSource);
 
-            usdRate = rateHandler.getUsdRate();
-            eurRate = rateHandler.getEurRate();
-            gbpRate = rateHandler.getGbpRate();
+            usdRate = rateHandler.getUsRate();
+            eurRate = rateHandler.getEuRate();
+            gbpRate = rateHandler.getGbRate();
 
         } catch (IOException ioe) {
             ioe.printStackTrace();
@@ -51,7 +51,6 @@ public class ExchangeRate {
     }
 
     public double getUsdRate() {
-        setCurrentRate();
         return usdRate;
     }
 
@@ -60,7 +59,6 @@ public class ExchangeRate {
     }
 
     public double getEurRate() {
-        setCurrentRate();
         return eurRate;
     }
 
@@ -69,7 +67,6 @@ public class ExchangeRate {
     }
 
     public double getGbpRate() {
-        setCurrentRate();
         return gbpRate;
     }
 

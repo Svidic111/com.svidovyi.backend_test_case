@@ -2,14 +2,16 @@ package Task1;
 
 public class Convertor {
 
+    ExchangeRate currentRate;
+
     public double converteUSD (double price, String currency) {
 
-        ExchangeRate currentRate = new ExchangeRate();
-        currentRate.setCurrentRate();
+        this.currentRate = new ExchangeRate();
+        this.currentRate.setCurrentRate();
 
-        double usdRate = currentRate.getUsdRate();
-        double eurRate = currentRate.getEurRate();
-        double gbpRate = currentRate.getGbpRate();
+        double usdRate = this.currentRate.getUsdRate();
+        double eurRate = this.currentRate.getEurRate();
+        double gbpRate = this.currentRate.getGbpRate();
 
         if (currency.equalsIgnoreCase("GRN")) {
             double grnPrice = price * usdRate;

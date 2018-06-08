@@ -15,61 +15,62 @@ public class RateHandler  extends DefaultHandler {
     private boolean gbTrigger;
     private boolean takeGbValue;
 
-    double usdRate = 0;
-    double eurRate = 0;
-    double gbpRate = 0;
+    private double usRate;
+    private double euRate;
+    private double gbRate;
 
-    public double getUsdRate() {
-        return usdRate;
+    public double getUsRate() {
+        return usRate;
     }
-    public double getEurRate() {
-        return eurRate;
+    public double getEuRate() {
+        return euRate;
     }
-    public double getGbpRate() {
-        return gbpRate;
-    }
-
-    @Override
-    public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
-        if (qName.equalsIgnoreCase("Долар США")) {
-            usTrigger = true;
-        }
-        if (qName.equalsIgnoreCase("Євро")) {
-            euTrigger = true;
-        }
-        if (qName.equalsIgnoreCase("Фунт стерлінгів")) {
-            gbTrigger = true;
-        }
-    }
-
-    @Override
-    public void endElement (String uri, String localName, String qName) throws SAXException {
-        if (usTrigger) {
-            takeUsValue = true;
-            usTrigger = false;
-        }
-        if (euTrigger) {
-            takeEuValue = true;
-            euTrigger = false;
-        }
-        if (gbTrigger) {
-            takeGbValue = true;
-            gbTrigger = false;
-        }
+    public double getGbRate() {
+        return gbRate;
     }
 
     @Override
     public void characters(char ch[], int start, int length) throws SAXException {
-        if (takeUsValue) {
-            this.usdRate = Double.valueOf(new String(ch, start, length));
+        String str = new String(ch, start, length);
+        if (!str.startsWith("<") && str.equalsIgnoreCase("Долар США")) {
+            usTrigger = true;
+            return;
+        }
+        if (usTrigger == true && takeUsValue != true) {
+            takeUsValue = true;
+            return;
+        }
+        if (usTrigger == true && takeUsValue == true) {
+            usRate = Double.valueOf(str);
+            usTrigger = false;
             takeUsValue = false;
         }
-        if (takeEuValue) {
-            this.eurRate = Double.valueOf(new String(ch, start, length));
+
+        if (!str.startsWith("<") && str.equalsIgnoreCase("Євро")) {
+            euTrigger = true;
+            return;
+        }
+        if (euTrigger == true && takeEuValue != true) {
+            takeEuValue = true;
+            return;
+        }
+        if (euTrigger == true && takeEuValue == true) {
+            euRate = Double.valueOf(str);
+            euTrigger = false;
             takeEuValue = false;
         }
-        if (takeGbValue) {
-            this.gbpRate = Double.valueOf(new String(ch, start, length));
+
+        if (!str.startsWith("<") && str.equalsIgnoreCase("Фунт стерлінгів")) {
+            gbTrigger = true;
+            return;
+        }
+        if (gbTrigger == true && takeGbValue != true) {
+            takeGbValue = true;
+            return;
+        }
+        if (gbTrigger == true && takeGbValue == true) {
+            gbRate = Double.valueOf(str);
+            gbTrigger = false;
             takeGbValue = false;
         }
     }
