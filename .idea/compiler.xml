@@ -7,10 +7,12 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="backend_test_case" />
+        <module name="com.svidovyi.backend_test_case" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="backend_test_case" target="1.5" />
+      <module name="com.svidovyi.backend_test_case" target="1.5" />
     </bytecodeTargetLevel>
   </component>
 </project>
